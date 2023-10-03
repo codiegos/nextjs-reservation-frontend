@@ -1,3 +1,31 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --primary: rgba(219, 39, 119, 0.3);
+  --secondary: #db2777;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--secondary) var(--primary);
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+*::-webkit-scrollbar-track {
+  margin-left: 275px;
+  background: var(--primary);
+}
+
+*::-webkit-scrollbar-thumb {
+  margin-top: 200px;
+  background-color: var(--secondary);
+  border-radius: 14px;
+}
