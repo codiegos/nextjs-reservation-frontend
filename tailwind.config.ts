@@ -9,9 +9,15 @@ const config: Config = {
   darkMode: 'class',
   theme: {
     fontFamily: {
-      sans: ['var(--font-poppins)'],
+      sans: ['var(--primary-font)'],
     },
-    extend: {},
+    extend: {
+      colors: {
+        primary: '#120037',
+        secondary: '#29007D',
+        tertiary: '#3A00B0',
+      },
+    },
   },
   plugins: [],
 }

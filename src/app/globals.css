@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 :root {
-  --primary: rgba(219, 39, 119, 0.3);
-  --secondary: #db2777;
+  --primary: rgba(18, 0, 55, 0.3);
+  --secondary: #29007d;
 }
 
 /* Firefox */
