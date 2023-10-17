@@ -1,6 +1,5 @@
 interface TableCellProps {
   value: React.ReactNode
-
   type?: string
 }
 

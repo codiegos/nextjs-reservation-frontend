@@ -1,13 +1,14 @@
-import { XIcon } from './Icons'
+'use client'
+import { XIcon } from '../icons'
+import { RowData } from '@/types'
 
 interface ModalProps {
   isOpen: boolean
   onClose: () => void
-  children: React.ReactNode
-  data: { [key: string]: string }[]
+  rowData: RowData | undefined
 }
 
-function Modal({ isOpen, onClose, children }: ModalProps) {
+function Modal({ isOpen, onClose, rowData }: ModalProps) {
   return (
     <div
       className={`fixed inset-0 z-50 grid place-items-center transition-colors lg:pl-64 ${
@@ -16,17 +17,17 @@ function Modal({ isOpen, onClose, children }: ModalProps) {
       onClick={onClose}
     >
       <div
-        className={`max-w-2xl rounded-lg bg-white p-6 shadow transition-all dark:bg-gray-800 ${
+        className={`max-w-2xl rounded-lg bg-white p-8 shadow transition-all dark:bg-gray-800 ${
           isOpen ? 'scale-100 opacity-100' : 'scale-110 opacity-0'
         }`}
         onClick={(e) => {
           e.stopPropagation()
         }}
       >
-        <button onClick={onClose} className='absolute right-0 top-0'>
+        <button onClick={onClose} className='absolute right-2 top-2'>
           <XIcon className='h-8 w-8 duration-150 hover:scale-105' />
         </button>
-        {children}
+        {/* <div>ROW DATA CONTENT</div> */}
       </div>
     </div>
   )
