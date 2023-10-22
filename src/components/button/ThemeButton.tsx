@@ -3,7 +3,7 @@ import { ButtonHTMLAttributes, useState, useEffect } from 'react'
 import { useTheme } from '@/hooks/use-dark-theme'
 import { MoonIcon, SunIcon } from '../icons'
 
-export function ThemeButton(props: ButtonHTMLAttributes<HTMLButtonElement>) {
+function ThemeButton(props: ButtonHTMLAttributes<HTMLButtonElement>) {
   const { theme, toggleTheme } = useTheme()
 
   const [loaded, setLoaded] = useState(false)
@@ -17,3 +17,5 @@ export function ThemeButton(props: ButtonHTMLAttributes<HTMLButtonElement>) {
     </button>
   )
 }
+
+export default ThemeButton
