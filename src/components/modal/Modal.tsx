@@ -1,27 +1,28 @@
 'use client'
-import { usePathname } from 'next/navigation'
 import { XIcon } from '../icons'
-import { RowData } from '@/types'
-import Form from '../form'
+import { useModal } from '@/hooks/use-modal'
 
 interface ModalProps {
-  isOpen: boolean
-  onClose: () => void
-  rowData?: RowData
+  children?: React.ReactNode
 }
 
-function Modal({ isOpen, onClose, rowData }: ModalProps) {
-  const pathname = usePathname().split('/').pop()
+function Modal({ children }: ModalProps) {
+  const { state, dispatch } = useModal()
+  const { isModalOpen } = state
+
+  const onClose = () => {
+    dispatch({ type: 'CLOSE_MODAL' })
+  }
 
   return (
     <section
       className={`fixed inset-0 z-50 grid place-items-center transition-colors lg:pl-64 ${
-        isOpen ? 'bg-black bg-opacity-50' : 'invisible'
+        isModalOpen ? 'bg-black bg-opacity-50' : 'invisible'
       }`}
     >
       <article
         className={`max-w-2xl rounded-lg border bg-white p-14 shadow transition-all dark:border-slate-800 dark:bg-slate-900 ${
-          isOpen ? 'scale-100 opacity-100' : 'scale-110 opacity-0'
+          isModalOpen ? 'scale-100 opacity-100' : 'scale-110 opacity-0'
         }`}
         onClick={(e) => {
           e.stopPropagation()
@@ -31,11 +32,7 @@ function Modal({ isOpen, onClose, rowData }: ModalProps) {
           <XIcon className='h-8 w-8 duration-150 hover:scale-105' />
         </button>
 
-        {rowData ? (
-          <Form type={pathname} rowData={rowData} />
-        ) : (
-          <Form type={pathname} />
-        )}
+        {children}
       </article>
     </section>
   )
