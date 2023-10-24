@@ -1,6 +1,4 @@
-export type Prepaid = {
-  id: string
-  name: string
-  description: string
-  price: number
-}
+import { prepaidSchema } from '@/libs/schemas/prepaidSchema'
+import { z } from 'zod'
+
+export type Prepaid = z.infer<typeof prepaidSchema>

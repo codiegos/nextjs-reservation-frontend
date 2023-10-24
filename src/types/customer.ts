@@ -1,7 +1,4 @@
-export type Customer = {
-  id: string
-  name: string
-  last_name: string
-  email: string
-  phone: string
-}
+import { customerSchema } from '@/libs/schemas/customerSchema'
+import { z } from 'zod'
+
+export type Customer = z.infer<typeof customerSchema>

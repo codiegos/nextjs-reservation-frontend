@@ -6,9 +6,11 @@ import { Prepaid } from './prepaid'
 
 export type { Cabin, Customer, Reservation, Setting }
 
-export type DataTypes = {
-  cabin: Cabin
-  customer: Customer
-  reservation: Reservation
-  setting: Setting
+export type RowData = Customer | Cabin | Reservation | Setting | Prepaid
+
+export type ListResponse = {
+  count: number
+  next: string | null
+  previous: string | null
+  results: Customer[] | Cabin[] | Reservation[] | Setting[] | Prepaid[]
 }

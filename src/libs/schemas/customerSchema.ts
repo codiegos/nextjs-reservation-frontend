@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 export const customerSchema = z.object({
-  id: z.string().readonly().optional(),
+  id: z.number(),
   name: z
     .string()
     .min(2, { message: 'El nombre debe tener al menos 2 carácteres.' })
