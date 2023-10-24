@@ -2,10 +2,12 @@ import { ReduxProvider } from '@/redux/provider'
 import './globals.css'
 import type { Metadata } from 'next'
 import { Albert_Sans } from 'next/font/google'
+import { ThemeProvider } from '@/contexts/theme-context'
+import { Toast } from '@/components/toast'
 
 const primaryFont = Albert_Sans({
   subsets: ['latin'],
-  variable: '--font-albert-sans',
+  variable: '--primary-font',
   weight: ['100', '200', '300', '400', '500', '700', '800', '900'],
 })
 
@@ -20,11 +22,16 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang='es'>
+    <html lang='es' suppressHydrationWarning>
       <body
-        className={`${primaryFont.variable} bg-slate-100 font-sans text-black dark:bg-slate-950 dark:text-white xl:text-[1.1rem] 2xl:text-lg`}
+        className={`${primaryFont.variable} bg-primary-50 font-sans dark:bg-primary-950 xl:text-[1.1rem] 2xl:text-lg`}
       >
-        <ReduxProvider>{children}</ReduxProvider>
+        <ReduxProvider>
+          <ThemeProvider>
+            {children}
+            <Toast />
+          </ThemeProvider>
+        </ReduxProvider>
       </body>
     </html>
   )
