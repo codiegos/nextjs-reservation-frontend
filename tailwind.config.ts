@@ -8,9 +8,9 @@ const config: Config = {
   ],
   darkMode: 'class',
   theme: {
-    fontFamily: {
-      sans: ['var(--primary-font)', 'sans-serif'],
-    },
+    // fontFamily: {
+    //  sans: ['var(--primary-font)', 'sans-serif'],
+    // },
     extend: {
       colors: {
         'primary-50': '#e4e6ff',

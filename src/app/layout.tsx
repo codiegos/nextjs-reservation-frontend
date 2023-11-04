@@ -1,15 +1,9 @@
 import { ReduxProvider } from '@/redux/provider'
 import './globals.css'
 import type { Metadata } from 'next'
-import { Albert_Sans } from 'next/font/google'
 import { ThemeProvider } from '@/contexts/theme-context'
 import { Toast } from '@/components/toast'
-
-const primaryFont = Albert_Sans({
-  subsets: ['latin'],
-  variable: '--primary-font',
-  weight: ['100', '200', '300', '400', '500', '700', '800', '900'],
-})
+import { GeistSans } from 'geist/font'
 
 export const metadata: Metadata = {
   title: 'Admin Reservas',
@@ -24,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang='es' suppressHydrationWarning>
       <body
-        className={`${primaryFont.variable} bg-primary-50 font-sans dark:bg-primary-950 xl:text-[1.1rem] 2xl:text-lg`}
+        className={`${GeistSans.className} bg-primary-50 font-sans dark:bg-primary-950`}
       >
         <ReduxProvider>
           <ThemeProvider>
