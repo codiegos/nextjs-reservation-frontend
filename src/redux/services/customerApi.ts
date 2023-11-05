@@ -1,3 +1,4 @@
+import { ListResponse } from '@/types'
 import { Customer } from '@/types/customer'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
@@ -7,9 +8,11 @@ export const customerApi = createApi({
     baseUrl: 'http://localhost:8000/api/',
     credentials: 'include',
   }),
+  tagTypes: ['Customers'],
   endpoints: (builder) => ({
-    getCustomers: builder.query<Customer[], null>({
-      query: () => 'customers/',
+    getCustomers: builder.query<ListResponse, number>({
+      query: (page = 1) => `customers/?page=${page}`,
+      providesTags: ['Customers'],
     }),
     createCustomer: builder.mutation({
       query: (body) => ({
@@ -17,22 +20,25 @@ export const customerApi = createApi({
         method: 'POST',
         body,
       }),
+      invalidatesTags: ['Customers'],
     }),
     getCustomerById: builder.query<Customer, { id: string }>({
-      query: ({ id }) => `customers/${id}`,
+      query: ({ id }) => `customers/${id}/`,
     }),
     updateCustomer: builder.mutation({
-      query: ({ id, ...patch }) => ({
-        url: `customers/${id}`,
+      query: ({ id, ...body }) => ({
+        url: `customers/${id}/`,
         method: 'PATCH',
-        body: patch,
+        body,
       }),
+      invalidatesTags: ['Customers'],
     }),
     deleteCustomer: builder.mutation({
       query: ({ id }) => ({
-        url: `customers/${id}`,
+        url: `customers/${id}/`,
         method: 'DELETE',
       }),
+      invalidatesTags: ['Customers'],
     }),
   }),
 })
