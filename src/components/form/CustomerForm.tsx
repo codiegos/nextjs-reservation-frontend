@@ -1,15 +1,24 @@
+'use client'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { Customer } from '@/types'
 import { InputForm } from '../input'
 import { customerSchema } from '@/libs/schemas/customerSchema'
 import { zodResolver } from '@hookform/resolvers/zod'
+import {
+  useCreateCustomerMutation,
+  useUpdateCustomerMutation,
+} from '@/redux/services/customerApi'
+import { useModal } from '@/hooks/use-modal'
+import { LoaderIcon } from '../icons'
+import { toast } from 'sonner'
+import { Form } from '.'
 
 interface CustomerFormProps {
   rowData?: Customer
 }
 
 function CustomerForm({ rowData }: CustomerFormProps) {
-  console.log(rowData)
+  const { dispatch } = useModal()
   const {
     register,
     handleSubmit,
@@ -17,15 +26,37 @@ function CustomerForm({ rowData }: CustomerFormProps) {
   } = useForm<Customer>({
     resolver: zodResolver(customerSchema),
   })
+
+  const [
+    updateCustomer,
+    { isLoading: isUpdateLoading, isSuccess: isUpdateSuccess },
+  ] = useUpdateCustomerMutation()
+  const [
+    createCustomer,
+    { isLoading: isCreateLoading, isSuccess: isCreateSuccess },
+  ] = useCreateCustomerMutation()
+
   const onSubmit: SubmitHandler<Customer> = (data) => {
-    console.log(data)
+    try {
+      if (rowData) {
+        console.log(rowData)
+        data.id = rowData.id
+        updateCustomer(data)
+        toast.success('Cliente actualizado con éxito')
+      } else {
+        createCustomer(data)
+        toast.success('Cliente creado con éxito')
+      }
+
+      dispatch({ type: 'CLOSE_MODAL' })
+    } catch (err) {
+      toast.error('Ha ocurrido un error')
+    }
   }
 
   return (
-    <form
-      className='grid gap-6 sm:w-80 2xl:w-96'
+    <Form
       onSubmit={handleSubmit(onSubmit)}
-      autoComplete='off'
     >
       <InputForm
         label='Nombre'
@@ -81,11 +112,14 @@ function CustomerForm({ rowData }: CustomerFormProps) {
 
       <button
         type='submit'
-        className='w-full rounded-md bg-primary-900 p-2.5 text-white'
+        className='flex items-center justify-center whitespace-nowrap rounded-md bg-primary-900 p-2.5 text-white duration-150 hover:bg-primary-500'
       >
-        Guardar
+        Guardar{' '}
+        {(isUpdateLoading || isCreateLoading) && (
+          <LoaderIcon className='h-4 w-4 animate-spin' />
+        )}
       </button>
-    </form>
+    </Form>
   )
 }
 export default CustomerForm
