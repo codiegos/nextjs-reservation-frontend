@@ -5,36 +5,36 @@ import {
   LogOutIcon,
   SettingIcon,
   UserDetailIcon,
-} from '@/components/Icons'
+} from '@/components/icons'
 
 export const navItems = [
   {
-    name: 'INICIO',
+    name: 'inicio',
     href: '/dashboard',
     icon: DashboardIcon,
   },
   {
-    name: 'RESERVAS',
+    name: 'reservas',
     href: '/dashboard/reservations',
     icon: CalendarEventIcon,
   },
   {
-    name: 'CABAÑAS',
+    name: 'cabañas',
     href: '/dashboard/cabins',
     icon: HomeIcon,
   },
   {
-    name: 'CLIENTES',
+    name: 'clientes',
     href: '/dashboard/customers',
     icon: UserDetailIcon,
   },
   {
-    name: 'CONFIGURACIONES',
+    name: 'configuraciones',
     href: '/dashboard/settings',
     icon: SettingIcon,
   },
   {
-    name: 'CERRAR SESIÓN',
+    name: 'cerrar sesión',
     href: '#',
     icon: LogOutIcon,
   },
@@ -42,6 +42,7 @@ export const navItems = [
 
 export const cabinHeading = {
   id: '#',
+  color: 'Color',
   name: 'Nombre',
   description: 'Descripción',
   price: 'Precio',
@@ -94,4 +95,10 @@ export const userHeading = {
   last_name: 'Apellido',
   phone: 'Teléfono',
   role: 'Rol',
+}
+
+export const modalModes = {
+  create: 'create',
+  edit: 'edit',
+  delete: 'delete',
 }
