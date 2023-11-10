@@ -1,39 +1,39 @@
 'use client'
 import { RowData } from '@/types'
-import { useState } from 'react'
 import { PencilIcon, TrashIcon } from '../icons'
-import { Modal } from '../modal'
 import { TableCell } from './TableCell'
-import WarningAlert from '../alert/WarningAlert'
+import { WarningAlert } from '../alert'
+import { useModal } from '@/hooks/use-modal'
 
-interface TableProps {
-  heading: RowData
-  data: RowData[] | undefined
-  isModalOpen: boolean
-  setIsModalOpen: (isOpen: boolean) => void
+type Heading = {
+  [key: string]: string
 }
 
-export function Table({ heading, data }: TableProps) {
-  const [rowData, setRowData] = useState<RowData>()
-  const [isModalOpen, setIsModalOpen] = useState(false)
+interface TableProps {
+  heading: Heading
+  data?: RowData[]
+  setRowData: React.Dispatch<React.SetStateAction<RowData | undefined>>
+}
+
+export function Table({ heading, data, setRowData }: TableProps) {
+  const { dispatch } = useModal()
 
   const handleEditRow = (row: RowData) => {
     setRowData(row)
-    setIsModalOpen(true)
+    dispatch({ type: 'SET_MODAL_MODE', payload: 'edit' })
+    dispatch({ type: 'OPEN_MODAL' })
   }
 
-  const handleDeleteRow = (id: RowData['id']) => {
-    console.log(id)
-  }
-
-  const closeModal = () => {
-    setIsModalOpen(false)
+  const handleDeleteRow = (row: RowData) => {
+    setRowData(row)
+    dispatch({ type: 'SET_MODAL_MODE', payload: 'delete' })
+    dispatch({ type: 'OPEN_MODAL' })
   }
 
   if (!data) return <WarningAlert />
 
   return (
-    <aside className='grid overflow-x-auto'>
+    <aside className='grid place-items-center overflow-x-auto'>
       <div className='inline-block min-w-full'>
         <div className='overflow-x-auto'>
           <table className='lg:text-md min-w-full text-left font-light'>
@@ -54,10 +54,10 @@ export function Table({ heading, data }: TableProps) {
               </tr>
             </thead>
             <tbody>
-              {data.map((row, i) => (
+              {data.map((row: RowData) => (
                 <tr
                   className='border-b transition duration-150 hover:bg-primary-50 dark:border-neutral-500 dark:hover:bg-primary-900/30'
-                  key={i}
+                  key={row.id}
                 >
                   {Object.keys(heading).map((head) => (
                     <td className='whitespace-nowrap px-6 py-4' key={head}>
@@ -72,7 +72,7 @@ export function Table({ heading, data }: TableProps) {
                     <button onClick={() => handleEditRow(row)}>
                       <PencilIcon className='duration-150 hover:text-primary-300' />
                     </button>
-                    <button onClick={() => handleDeleteRow(row.id)}>
+                    <button onClick={() => handleDeleteRow(row)}>
                       <TrashIcon className='duration-150 hover:text-primary-400' />
                     </button>
                   </td>
@@ -80,13 +80,6 @@ export function Table({ heading, data }: TableProps) {
               ))}
             </tbody>
           </table>
-          {isModalOpen && (
-            <Modal
-              isOpen={isModalOpen}
-              onClose={closeModal}
-              rowData={rowData}
-            />
-          )}
         </div>
       </div>
     </aside>

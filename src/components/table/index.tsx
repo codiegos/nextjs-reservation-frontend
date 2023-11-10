@@ -1,3 +1,3 @@
 import { Table } from './Table'
-
-export { Table }
+import TablePagination from './Pagination'
+export { Table, TablePagination }
