@@ -1,0 +1,38 @@
+.rbc-off-range-bg {
+  background-color: rgba(134, 134, 134, 0.17);
+}
+
+.rbc-today {
+  background-color: #6547b05b;
+}
+
+.rbc-btn-group > button {
+  color: currentColor;
+}
+
+.rbc-btn-group > button.rbc-active {
+  color: white;
+  background-color: var(--secondary);
+}
+
+.rbc-btn-group > button:focus {
+  color: white;
+  background-color: var(--secondary);
+}
+
+.rbc-btn-group > button:hover {
+  color: white;
+  transition-duration: 100ms;
+  background-color: var(--secondary);
+}
+
+.rbc-btn-group > button.rbc-active:hover {
+  color: white;
+  transition-duration: 100ms;
+  background-color: var(--secondary);
+}
+
+.rbc-event {
+  background-color: var(--secondary);
+  color: white;
+}
