@@ -25,6 +25,9 @@ const config: Config = {
         'primary-900': '#3500b0',
         'primary-950': '#120037',
       },
+      backgroundImage: {
+        mountains: 'url("/img/mountains.webp")',
+      },
     },
   },
   plugins: [],
